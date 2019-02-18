@@ -2,7 +2,7 @@ module type Sender =
   sig
     type t
     val close : t -> unit
-    val write : t -> string -> int -> int -> int option
+    val write : t -> bytes -> int -> int -> int option
   end
 
 module Make :
@@ -25,7 +25,7 @@ module Make :
       val post_with_time : t -> string -> Msgpack.Serialize.t -> int64 -> bool
       val post : t -> string -> Msgpack.Serialize.t -> bool
       val release : t -> unit
-      val create_with_sender : ?bufsize:int -> ?conn_timeout:int -> S.t -> t
+      val create_with_sender : ?bufsize:int -> S.t -> t
       val init : S.t -> int -> t
     end
 
@@ -48,7 +48,7 @@ module Default :
     val post_with_time : t -> string -> Msgpack.Serialize.t -> int64 -> bool
     val post : t -> string -> Msgpack.Serialize.t -> bool
     val release : t -> unit
-    val create_with_sender : ?bufsize:int -> ?conn_timeout:int -> Stream_sender.t -> t
+    val create_with_sender : ?bufsize:int -> Stream_sender.t -> t
   end
 
 include module type of Default

@@ -1,0 +1,15 @@
+opam-version: "2.0"
+maintainer: "komamitsu@gmail.com"
+authors: ["Mitsunori Komatsu"]
+homepage: "https://github.com/komamitsu/fluent-logger-ocaml"
+bug-reports: "https://github.com/komamitsu/fluent-logger-ocaml/issues"
+dev-repo: "https://github.com/komamitsu/fluent-logger-ocaml.git"
+license: "Apache"
+build: [[ "dune" "build" "--only-packages" "%{name}%" "--root" "." "-j" jobs "@install" ]]
+build-test: [["dune" "runtest" "-p" name "-j" jobs]]
+depends: [
+    "dune" {build}
+    "msgpack"
+    "extlib"
+    "ounit"
+]

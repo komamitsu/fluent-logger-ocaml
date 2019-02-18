@@ -2,7 +2,7 @@ module type Sender =
   sig
     type t
     val close: t -> unit
-    val write: t -> string -> int -> int -> int option
+    val write: t -> bytes -> int -> int -> int option
   end;;
 
 module Make(S : Sender) :
@@ -24,7 +24,7 @@ module Make(S : Sender) :
     val post_with_time : t -> string -> Msgpack.Serialize.t -> int64 -> bool
     val post : t -> string -> Msgpack.Serialize.t -> bool
     val release : t -> unit
-    val create_with_sender : ?bufsize:int -> ?conn_timeout:int -> S.t -> t
+    val create_with_sender : ?bufsize:int -> S.t -> t
     val init : S.t -> int -> t
   end
 =
@@ -51,7 +51,7 @@ module Make(S : Sender) :
         )
         else (
           let result = S.write logger.sender
-                        (Buffer.contents logger.buf)
+                        (Buffer.to_bytes logger.buf)
                         logger.buf_pos
                         (buflen - logger.buf_pos) in
           match result with
@@ -114,8 +114,8 @@ module Make(S : Sender) :
         buf_pos=0;
       }
 
-    let create_with_sender ?(bufsize = default_bufsize)
-      ?(conn_timeout = default_conn_timeout) sender = init sender bufsize
+    let create_with_sender ?(bufsize = default_bufsize) sender =
+      init sender bufsize
 
   end;;
 
