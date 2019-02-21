@@ -9,7 +9,7 @@ type t = {
   mutable socket:U.file_descr option;
   mutable last_conn_err_time:int option;
   mutable conn_err_count:int;
-  dummy_one_byte:string;
+  dummy_one_byte:bytes;
 }
 
 let create dst_info conn_timeout =
@@ -20,7 +20,7 @@ let create dst_info conn_timeout =
     (* TODO: extract this and conn_err_count to a module *)
     last_conn_err_time=None;
     conn_err_count=0;
-    dummy_one_byte=String.create 1
+    dummy_one_byte=Bytes.create 1
   }
 
 let print_unix_error label e fn param =

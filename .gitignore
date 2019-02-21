@@ -7,6 +7,11 @@ lib/depend
 *.cmx
 *.cmxa
 *.o
+.merlin
 example/example
 test/fluent_logger_test
 test/oUnit-anon.cache
+_build/
+dune-project
+fluent-logger.install
+
