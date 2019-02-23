@@ -8,7 +8,6 @@ description: "Structured logger for Fluentd (OCaml)"
 synopsis: "Structured logger for Fluentd (OCaml)"
 license: "Apache"
 build: [
-  ["dune" "subst"]
   ["dune" "build" "-p" name "-j" jobs]
 ]
 
